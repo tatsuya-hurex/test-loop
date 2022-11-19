@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import Data from "./text.json";
+import { useEffect, useState, useRef } from "react";
 
-function App() {
+const useAnimationFrame = (callback = () => {}) => {
+  const reqIdRef = useRef();
+  const loop = () => {
+    reqIdRef.current = requestAnimationFrame(loop);
+    callback()
+  };
+
+  useEffect(() => {
+    reqIdRef.current = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(reqIdRef.current);
+  }, []);
+}
+
+const getRandomInt = (min, max) => {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+}
+
+export default function App() {
+  const [text, setText] = useState([]);
+
+  const textWordLength = Data.data.length;
+  const randNum = getRandomInt(0, textWordLength)
+  console.log("randNum", randNum)
+  
+  useAnimationFrame(() => {
+    setText("bbb");
+  });
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>{text}</div>
     </div>
   );
 }
-
-export default App;
