@@ -48,11 +48,13 @@ function App() {
   return (
     <div>
       <h2>My Timer</h2>
-      <div>{words.map((text)=> (
-        <p key={text.id}>
-        {text.text}
-        </p>
-      ))}</div>
+      <div>
+        {words.map((text)=> (
+          <p key={text.id}>
+            {text.text}
+          </p>
+        ))}
+        </div>
       <button onClick={() => setTimer(true)}>スタート</button>
       <button onClick={() => setTimer(false)}>ストップ</button>
     </div>
